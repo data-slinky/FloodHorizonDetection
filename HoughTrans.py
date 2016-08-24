@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 
 # Load image
-filepath = "easy/flood_easy12.jpg"
+filepath = "easy/flood_easy.jpg"
 name = os.path.splitext(os.path.basename(filepath))[0]
 
 image = io.imread(filepath)
@@ -16,14 +16,13 @@ img_gray = exposure.adjust_gamma(img_gray) # Contrast correction
 
 
 # Edge detection
-edges = feature.canny(img_gray, sigma=1.5) # Canny
+edges = feature.canny(img_gray, sigma=2) # Canny
 # edges = filters.sobel(img_gray) # Use Sobel
 
 # Hough transformation
 h, theta, d = hough_line(edges)
 
-fig, (ax1, ax2, ax3, ax4) = plt.subplots(1, 4, figsize=(10,10))
-
+fig, (ax1, ax2, ax3, ax4) = plt.subplots(1, 4, figsize=(30,30))
 
 ax1.imshow(image, cmap=plt.cm.gray)
 ax1.set_title('Input image')
@@ -33,7 +32,7 @@ ax2.imshow(edges, cmap=plt.cm.gray)
 ax2.set_title('Detect edges')
 ax2.set_axis_off()
 
-ax3.imshow(h, cmap=plt.cm.gray, aspect=1/1.5)
+ax3.imshow(h, cmap=plt.cm.gray, aspect=100)
 ax3.set_title('Hough transform')
 ax3.set_xlabel('Angles (degrees)')
 ax3.set_ylabel('Distance (pixels)')
@@ -50,4 +49,4 @@ ax4.set_title('Detected lines')
 ax4.set_axis_off()
 plt.show()
 
-plt.savefig('easy/' + name + '_result')
+#plt.savefig('easy/' + name + '_result')
